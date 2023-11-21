@@ -13,111 +13,14 @@ namespace Calculator
             InitializeComponent();
         }
 
-
-        private void zero_Click(object sender, EventArgs e)
+        private void UpdateInput(string value)
         {
             this.result.Text = "";
-            input += "0";
+            input += value;
             this.result.Text += input;
         }
 
-        private void one_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "1";
-            this.result.Text += input;
-        }
-
-        private void two_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "2";
-            this.result.Text += input;
-        }
-
-        private void three_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "3";
-            this.result.Text += input;
-        }
-
-        private void four_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "4";
-            this.result.Text += input;
-        }
-
-        private void five_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "5";
-            this.result.Text += input;
-        }
-
-        private void sixe_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "6";
-            this.result.Text += input;
-        }
-
-        private void seven_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "7";
-            this.result.Text += input;
-        }
-
-        private void eight_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "8";
-            this.result.Text += input;
-        }
-
-        private void nine_Click(object sender, EventArgs e)
-        {
-            this.result.Text = "";
-            input += "9";
-            this.result.Text += input;
-        }
-
-        private void dot_Click(object sender, EventArgs e)
-        {
-            input += ".";
-        }
-
-        private void divide_Click(object sender, EventArgs e)
-        {
-            operand1 = input;
-            operation = '/';
-            input = string.Empty;
-        }
-
-        private void multi_Click(object sender, EventArgs e)
-        {
-            operand1 = input;
-            operation = '*';
-            input = string.Empty;
-        }
-
-        private void sub_Click(object sender, EventArgs e)
-        {
-            operand1 = input;
-            operation = '-';
-            input = string.Empty;
-        }
-
-        private void add_Click(object sender, EventArgs e)
-        {
-            operand1 = input;
-            operation = '+';
-            input = string.Empty;
-        }
-
-        private void enter_Click(object sender, EventArgs e)
+        private void PerformCalculation()
         {
             operand2 = input;
             double num1, num2;
@@ -127,29 +30,149 @@ namespace Calculator
             if (operation == '+')
             {
                 results = num1 + num2;
-                result.Text = results.ToString();
             }
             else if (operation == '-')
             {
                 results = num1 - num2;
-                result.Text = results.ToString();
             }
             else if (operation == '*')
             {
                 results = num1 * num2;
-                result.Text = results.ToString();
             }
             else if (operation == '/')
             {
                 if (num2 != 0)
                 {
                     results = num1 / num2;
-                    result.Text = results.ToString();
                 }
                 else
                 {
                     result.Text = "Div/Zero!";
+                    return;
                 }
+            }
+
+            result.Text = results.ToString();
+            operand1 = results.ToString();
+            input = string.Empty;
+        }
+
+        private void zero_Click(object sender, EventArgs e)
+        {
+            UpdateInput("0");
+        }
+
+        private void one_Click(object sender, EventArgs e)
+        {
+            UpdateInput("1");
+        }
+
+        private void two_Click(object sender, EventArgs e)
+        {
+            UpdateInput("2");
+        }
+
+        private void three_Click(object sender, EventArgs e)
+        {
+            UpdateInput("3");
+        }
+
+        private void four_Click(object sender, EventArgs e)
+        {
+            UpdateInput("4");
+        }
+
+        private void five_Click(object sender, EventArgs e)
+        {
+            UpdateInput("5");
+        }
+
+        private void sixe_Click(object sender, EventArgs e)
+        {
+            UpdateInput("6");
+        }
+
+        private void seven_Click(object sender, EventArgs e)
+        {
+            UpdateInput("7");
+        }
+
+        private void eight_Click(object sender, EventArgs e)
+        {
+            UpdateInput("8");
+        }
+
+        private void nine_Click(object sender, EventArgs e)
+        {
+            UpdateInput("9");
+        }
+
+        private void dot_Click(object sender, EventArgs e)
+        {
+            input += ".";
+        }
+
+        private void divide_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
+                if (!string.IsNullOrEmpty(operand1))
+                {
+                    PerformCalculation();
+                }
+                operand1 = input;
+                operation = '/';
+                input = string.Empty;
+            }
+        }
+
+        private void multi_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
+                if (!string.IsNullOrEmpty(operand1))
+                {
+                    PerformCalculation();
+                }
+                operand1 = input;
+                operation = '*';
+                input = string.Empty;
+            }
+        }
+
+        private void sub_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
+                if (!string.IsNullOrEmpty(operand1))
+                {
+                    PerformCalculation();
+                }
+                operand1 = input;
+                operation = '-';
+                input = string.Empty;
+            }
+        }
+
+        private void add_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
+                if (!string.IsNullOrEmpty(operand1))
+                {
+                    PerformCalculation();
+                }
+                operand1 = input;
+                operation = '+';
+                input = string.Empty;
+            }
+        }
+
+        private void enter_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(input) && !string.IsNullOrEmpty(operand1))
+            {
+                PerformCalculation();
             }
         }
 
@@ -159,11 +182,7 @@ namespace Calculator
             this.input = "";
             this.operand1 = string.Empty;
             this.operand2 = string.Empty;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
+            this.results = 0.0;
         }
     }
 }
